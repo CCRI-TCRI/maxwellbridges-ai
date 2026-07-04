@@ -15,6 +15,12 @@ export default defineConfig({
     },
   },
   clearScreen: false,
+  css: {
+    // Tailwind is handled by the @tailwindcss/vite plugin above. Pin an
+    // (empty) inline PostCSS config so Vite does NOT search parent
+    // directories and accidentally load the host repo's postcss.config.
+    postcss: { plugins: [] },
+  },
   server: {
     port: 1420,
     strictPort: true,
