@@ -3,9 +3,16 @@ name: Release Sinclaire Storion (Desktop)
 # Builds the Sinclaire Storion Tauri desktop app and publishes installers to a
 # GitHub Release. Trigger by pushing a tag like `v0.1.0`, or run manually.
 on:
+  # Tag pushes are the normal release path once this workflow is on the
+  # default branch.
   push:
     tags:
       - "v*"
+    # Also build when the development branch is pushed, so a Release can be
+    # produced before the workflow reaches the default branch. (A push event
+    # uses the workflow file from the pushed branch, unlike workflow_dispatch.)
+    branches:
+      - "claude/sinclaire-storion-app-rvxf9l"
   workflow_dispatch:
     inputs:
       tag:
@@ -58,8 +65,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           projectPath: sinclaire-storion
-          tagName: ${{ github.event.inputs.tag || github.ref_name }}
-          releaseName: "Sinclaire Storion ${{ github.event.inputs.tag || github.ref_name }}"
+          tagName: ${{ github.event.inputs.tag || (startsWith(github.ref, 'refs/tags/') && github.ref_name) || 'v0.1.0' }}
+          releaseName: "Sinclaire Storion ${{ github.event.inputs.tag || (startsWith(github.ref, 'refs/tags/') && github.ref_name) || 'v0.1.0' }}"
           releaseBody: |
             **Sinclaire Storion** — a director-first storyboard workspace.
             Property of Sinclaire Sebastian Studios. Made by Sseruwagi Sinclaire Sebastian.
