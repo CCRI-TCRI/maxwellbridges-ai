@@ -1,0 +1,75 @@
+name: Release Sinclaire Storion (Desktop)
+
+# Builds the Sinclaire Storion Tauri desktop app and publishes installers to a
+# GitHub Release. Trigger by pushing a tag like `v0.1.0`, or run manually.
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag to publish (e.g. v0.1.0)"
+        required: true
+        default: "v0.1.0"
+
+jobs:
+  build:
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: windows-latest
+            args: ""
+          # Add more targets later, e.g.:
+          # - platform: macos-latest
+          #   args: "--target aarch64-apple-darwin"
+          # - platform: ubuntu-22.04
+          #   args: ""
+    runs-on: ${{ matrix.platform }}
+    defaults:
+      run:
+        working-directory: sinclaire-storion
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache cargo
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: "sinclaire-storion/src-tauri -> target"
+
+      - name: Install frontend dependencies
+        run: npm ci
+
+      - name: Build & release desktop app
+        uses: tauri-apps/tauri-action@v0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          projectPath: sinclaire-storion
+          tagName: ${{ github.event.inputs.tag || github.ref_name }}
+          releaseName: "Sinclaire Storion ${{ github.event.inputs.tag || github.ref_name }}"
+          releaseBody: |
+            **Sinclaire Storion** — a director-first storyboard workspace.
+            Property of Sinclaire Sebastian Studios. Made by Sseruwagi Sinclaire Sebastian.
+
+            Download the Windows installer below:
+            - `.msi` (Windows Installer) or `.exe` (NSIS setup)
+
+            After installing, launch **Sinclaire Storion** from the Start menu. It opens
+            with a sample project so you can try every feature immediately.
+          releaseDraft: false
+          prerelease: false
+          includeUpdaterJson: false
+          args: ${{ matrix.args }}
