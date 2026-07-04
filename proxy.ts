@@ -17,6 +17,14 @@ export async function proxy(request: NextRequest) {
     return NextResponse.next();
   }
 
+  /*
+   * Sinclaire Storion is a self-contained, client-side workspace that
+   * persists locally — it needs no authentication, so let it through.
+   */
+  if (pathname === "/studio" || pathname.startsWith("/studio/")) {
+    return NextResponse.next();
+  }
+
   const token = await getToken({
     req: request,
     secret: process.env.AUTH_SECRET,

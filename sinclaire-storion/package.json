@@ -1,0 +1,40 @@
+{
+  "name": "sinclaire-storion",
+  "version": "0.1.0",
+  "description": "Sinclaire Storion — a director-first storyboard workspace. Property of Sinclaire Sebastian Studios.",
+  "author": "Sseruwagi Sinclaire Sebastian",
+  "license": "SEE LICENSE IN LICENSE",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "tauri": "tauri",
+    "tauri:dev": "tauri dev",
+    "tauri:build": "tauri build"
+  },
+  "dependencies": {
+    "@xyflow/react": "^12.3.5",
+    "clsx": "^2.1.1",
+    "framer-motion": "^11.11.9",
+    "konva": "^9.3.16",
+    "lucide-react": "^0.454.0",
+    "nanoid": "^5.0.8",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-konva": "^18.2.10",
+    "tailwind-merge": "^2.5.4",
+    "zustand": "^5.0.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.0",
+    "@tauri-apps/cli": "^2.1.0",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.3",
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.10"
+  }
+}
