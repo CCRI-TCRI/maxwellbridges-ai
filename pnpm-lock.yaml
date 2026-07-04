@@ -248,6 +248,9 @@ importers:
       zod:
         specifier: ^3.25.76
         version: 3.25.76
+      zustand:
+        specifier: ^5.0.14
+        version: 5.0.14(@types/react@18.3.18)(react@19.0.1)(use-sync-external-store@1.6.0(react@19.0.1))
     devDependencies:
       '@biomejs/biome':
         specifier: 2.2.2
@@ -2526,6 +2529,7 @@ packages:
   '@vercel/postgres@0.10.0':
     resolution: {integrity: sha512-fSD23DxGND40IzSkXjcFcxr53t3Tiym59Is0jSYIFpG4/0f0KO9SGtcp1sXiebvPaGe7N/tU05cH4yt2S6/IPg==}
     engines: {node: '>=18.14'}
+    deprecated: '@vercel/postgres is deprecated. If you are setting up a new database, you can choose an alternate storage solution from the Vercel Marketplace. If you had an existing Vercel Postgres database, it should have been migrated to Neon as a native Vercel integration. You can find more details and the guide to migrate to Neon''s SDKs here: https://neon.com/docs/guides/vercel-postgres-transition-guide'
 
   '@vitest/expect@3.2.4':
     resolution: {integrity: sha512-Io0yyORnB6sikFlt8QW5K7slY4OjqNX9jmJQ02QDda8lyM6B5oNgVWoSoKPac8/kgnCUzuHQKrSLtu/uOqqrig==}
@@ -4523,6 +4527,24 @@ packages:
       immer:
         optional: true
       react:
+        optional: true
+
+  zustand@5.0.14:
+    resolution: {integrity: sha512-/8tAspM5LMPr28b3fwLYrtdj77ECpfZviaP75CMTnwO8ISyaE4GDIG/9rDDYq/cH9D2Xw2A2RXglLInmVBQB/g==}
+    engines: {node: '>=12.20.0'}
+    peerDependencies:
+      '@types/react': '>=18.0.0'
+      immer: '>=9.0.6'
+      react: '>=18.0.0'
+      use-sync-external-store: '>=1.2.0'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      immer:
+        optional: true
+      react:
+        optional: true
+      use-sync-external-store:
         optional: true
 
   zwitch@2.0.4:
@@ -8947,5 +8969,11 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.18
       react: 19.0.1
+
+  zustand@5.0.14(@types/react@18.3.18)(react@19.0.1)(use-sync-external-store@1.6.0(react@19.0.1)):
+    optionalDependencies:
+      '@types/react': 18.3.18
+      react: 19.0.1
+      use-sync-external-store: 1.6.0(react@19.0.1)
 
   zwitch@2.0.4: {}
